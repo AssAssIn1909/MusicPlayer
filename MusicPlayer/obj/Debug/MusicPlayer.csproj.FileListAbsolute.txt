@@ -1,0 +1,16 @@
+E:\Project\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe.config
+E:\Project\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.exe
+E:\Project\MusicPlayer\MusicPlayer\bin\Debug\MusicPlayer.pdb
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csprojResolveAssemblyReference.cache
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MainWindow.g.cs
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\App.g.cs
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.cache
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer_MarkupCompile.lref
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MainWindow.baml
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.g.resources
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.Properties.Resources.resources
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.csproj.GenerateResource.Cache
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.exe
+E:\Project\MusicPlayer\MusicPlayer\obj\Debug\MusicPlayer.pdb
+E:\Project\MusicPlayer\MusicPlayer\bin\Debug\CSCore.dll
+E:\Project\MusicPlayer\MusicPlayer\bin\Debug\CSCore.xml
