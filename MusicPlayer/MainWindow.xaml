@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid Margin="0,0,2,-5">
-        <ListView x:Name="listView" Margin="10,10,0,0" HorizontalAlignment="Left" Width="497" Height="272" VerticalAlignment="Top" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick">
+        <ListView x:Name="listView" Margin="10,50,0,0" HorizontalAlignment="Left" Width="497" Height="232" VerticalAlignment="Top" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
@@ -19,5 +19,7 @@
         <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="90,289,0,0" VerticalAlignment="Top" Width="75" Click="playButton_Click"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="170,289,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
         <Button x:Name="nextButton" Content="Next" HorizontalAlignment="Left" Margin="250,289,0,0" VerticalAlignment="Top" Width="75" Click="nextButton_Click"/>
+        <Slider x:Name="volumeBar" HorizontalAlignment="Left" Margin="407,289,0,0" VerticalAlignment="Top" Width="100" Height="20" Maximum="100" ValueChanged="volumeBar_ValueChanged" SmallChange="1"/>
+        <Slider x:Name="trackPosistion" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="495" SmallChange="5" ValueChanged="trackPosistion_ValueChanged" TickFrequency="10000" PreviewMouseLeftButtonDown="trackPosistion_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="trackPosistion_PreviewMouseLeftButtonUp" IsMoveToPointEnabled="True"/>
     </Grid>
 </Window>
