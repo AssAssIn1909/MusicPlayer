@@ -5,21 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicPlayer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="367" Width="536">
     <Grid Margin="0,0,2,-5">
-        <ListView x:Name="listView" Margin="10,50,0,0" HorizontalAlignment="Left" Width="497" Height="232" VerticalAlignment="Top" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick">
+        <ListView x:Name="listView" Margin="10,63,10,0" Height="232" VerticalAlignment="Top" SelectionChanged="listView_SelectionChanged" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}"/>
+                    <GridViewColumn Header="Artist" DisplayMemberBinding="{Binding Artist}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="previousButton" Content="Previous" HorizontalAlignment="Left" Margin="10,289,0,0" VerticalAlignment="Top" Width="75" Click="previousButton_Click"/>
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="90,289,0,0" VerticalAlignment="Top" Width="75" Click="playButton_Click"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="170,289,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
-        <Button x:Name="nextButton" Content="Next" HorizontalAlignment="Left" Margin="250,289,0,0" VerticalAlignment="Top" Width="75" Click="nextButton_Click"/>
-        <Slider x:Name="volumeBar" HorizontalAlignment="Left" Margin="407,289,0,0" VerticalAlignment="Top" Width="100" Height="20" Maximum="100" ValueChanged="volumeBar_ValueChanged" SmallChange="1"/>
-        <Slider x:Name="trackPosistion" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="495" SmallChange="5" ValueChanged="trackPosistion_ValueChanged" TickFrequency="10000" PreviewMouseLeftButtonDown="trackPosistion_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="trackPosistion_PreviewMouseLeftButtonUp" IsMoveToPointEnabled="True"/>
+        <Button x:Name="previousButton" Content="Previous" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" Width="75" Click="previousButton_Click"/>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="90,300,0,0" VerticalAlignment="Top" Width="75" Click="playButton_Click"/>
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="170,300,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
+        <Button x:Name="nextButton" Content="Next" HorizontalAlignment="Left" Margin="250,300,0,0" VerticalAlignment="Top" Width="75" Click="nextButton_Click"/>
+        <Slider x:Name="volumeBar" Margin="414,300,0,0" VerticalAlignment="Top" Height="20" Maximum="100" ValueChanged="volumeBar_ValueChanged" SmallChange="1" IsMoveToPointEnabled="True" HorizontalAlignment="Left" Width="102"/>
+        <Slider x:Name="trackPosistion" Margin="10,10,10,0" VerticalAlignment="Top" SmallChange="5" ValueChanged="trackPosistion_ValueChanged" TickFrequency="10000" PreviewMouseLeftButtonDown="trackPosistion_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="trackPosistion_PreviewMouseLeftButtonUp" IsMoveToPointEnabled="True" MouseEnter="trackPosistion_MouseEnter" MouseLeave="trackPosistion_MouseLeave"/>
+        <TextBlock x:Name="nowPlaying" HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" Text="Now playing" VerticalAlignment="Top" Width="315"/>
+        <TextBlock x:Name="secondsText" Margin="436,42,10,0" TextWrapping="Wrap" Text="0:00/0:00" VerticalAlignment="Top" TextAlignment="Right"/>
     </Grid>
 </Window>

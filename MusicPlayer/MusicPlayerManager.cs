@@ -11,18 +11,61 @@ using System.Windows.Controls;
 
 namespace MusicPlayer
 {
+    /// <summary>
+    /// Music player base class. 
+    /// </summary>
     public class MusicPlayerManager
     {
+        /// <summary>
+        /// Song source
+        /// </summary>
         private IWaveSource _waveSource;
+        /// <summary>
+        /// Audio output 
+        /// </summary>
         private ISoundOut _soundOut;
-        private int currentPlay;
+        /// <summary>
+        /// Index of current playing song
+        /// </summary>
+        private int currentPlayIndex;
         private int volume;
 
-
+        /// <summary>
+        /// Song list
+        /// </summary>
         public List<Song> Songs { get; set; }
+        /// <summary>
+        /// Playing, Stopped, Paused
+        /// </summary>
         public PlayerStatus PlayerStatus;
-        public int Volume { get { return (int)_soundOut.Volume * 100; } set { if (_soundOut != null) _soundOut.Volume = value / 100f; volume = value; } }
-        public TimeSpan Position
+        public string CurrentPlaySong
+        {
+            get
+            {
+                if(PlayerStatus != PlayerStatus.Stop)
+                    return $"Now playing: {Songs[currentPlayIndex].Title} - {Songs[currentPlayIndex].Artist}";
+                return "Stopped";
+            }
+            private set { } }
+        /// <summary>
+        /// Volume field
+        /// </summary>
+        public int Volume
+        {
+            get
+            {
+                return (int)_soundOut.Volume * 100;
+            }
+            set
+            {
+                if (_soundOut != null)
+                    _soundOut.Volume = value / 100f; volume = value;
+            }
+        }
+        /// <summary>
+        /// Current part of current playing song
+        /// </summary>
+        public TimeSpan SongPosition
         {
             get
             {
@@ -37,23 +80,35 @@ namespace MusicPlayer
             }
         }
 
-
-        public TimeSpan Length { get { return _waveSource.GetLength(); } private set { } }
+        /// <summary>
+        /// Song length
+        /// </summary>
+        public TimeSpan SongLength
+        {
+            get
+            {
+                return _waveSource.GetLength();
+            }
+            private set { }
+        }
 
         public MusicPlayerManager()
         {
             Songs = new List<Song>();
-            currentPlay = 0;
+            currentPlayIndex = 0;
             PlayerStatus = PlayerStatus.Stop;
             
 
             FindSongs(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
         }
 
-
+        /// <summary>
+        /// Play selected song. Double clicked song on the list
+        /// </summary>
+        /// <param name="selectedIndex">Song index on list</param>
         public void PlaySelectedSong(int selectedIndex)
         {
-            currentPlay = selectedIndex;
+            currentPlayIndex = selectedIndex;
             if (PlayerStatus == PlayerStatus.Play || PlayerStatus == PlayerStatus.Pause)
             {
                 _soundOut.Stop();
@@ -61,6 +116,9 @@ namespace MusicPlayer
             PlayASound();
         }
 
+        /// <summary>
+        /// Play or pause song
+        /// </summary>
         public void Play()
         {
             if (PlayerStatus == PlayerStatus.Play)
@@ -74,13 +132,16 @@ namespace MusicPlayer
                 _soundOut.Play();
                 PlayerStatus = PlayerStatus.Play;
             }
-            else
+            else // if PlayerStatus == PlayerStatus.Stop
             {
                 PlayASound();
             }
             
         }
 
+        /// <summary>
+        /// Stop playing a song
+        /// </summary>
         public void Stop()
         {
             _soundOut.Stop();
@@ -88,28 +149,37 @@ namespace MusicPlayer
             PlayerStatus = PlayerStatus.Stop;
         }
 
+        /// <summary>
+        /// Play previous song on list
+        /// </summary>
         public void PlayPrevious()
         {
-            if (currentPlay + 1 != 0)
+            if (currentPlayIndex + 1 != 0)
             {
-                currentPlay--;
+                currentPlayIndex--;
             }
 
             _soundOut.Stop();
             PlayASound();
         }
 
+        /// <summary>
+        /// Play previous song on list
+        /// </summary>
         public void PlayNext()
         {
-            if (currentPlay + 1 != Songs.Count)
+            if (currentPlayIndex + 1 != Songs.Count)
             {
-                currentPlay++;
+                currentPlayIndex++;
             }
 
             _soundOut.Stop();
             PlayASound();
         }
 
+        /// <summary>
+        /// Close audio output and song source
+        /// </summary>
         public void CleanupPlayback()
         {
             if (_soundOut != null)
@@ -124,9 +194,13 @@ namespace MusicPlayer
             }
         }
 
-        private void FindSongs(string path)
+        /// <summary>
+        /// Find songs in directory
+        /// </summary>
+        /// <param name="path"></param>
+        private void FindSongs(string directoryPath)
         {
-            var files = Directory.GetFiles(path);
+            var files = Directory.GetFiles(directoryPath);
 
             foreach (var item in files)
             {
@@ -141,7 +215,7 @@ namespace MusicPlayer
                             song = new Song
                             {
                                 Title = Path.GetFileNameWithoutExtension(item),
-                                Author = "",
+                                Artist = "",
                                 Path = item
                             };
                         }
@@ -152,7 +226,7 @@ namespace MusicPlayer
                             song = new Song
                             {
                                 Title = tags.Title,
-                                Author = tags.Artist,
+                                Artist = tags.LeadPerformers,
                                 Track = tags.TrackNumber,
                                 Path = item
                             };
@@ -163,6 +237,9 @@ namespace MusicPlayer
             }
         }
 
+        /// <summary>
+        /// Default function which create audio output and reading song source
+        /// </summary>
         private void PlayASound()
         {
             _waveSource = GetSoundSource();
@@ -174,6 +251,10 @@ namespace MusicPlayer
             PlayerStatus = PlayerStatus.Play;
         }
 
+        /// <summary>
+        /// Get audio output
+        /// </summary>
+        /// <returns>Audio output</returns>
         private ISoundOut GetSoundOut()
         {
             if (WasapiOut.IsSupportedOnCurrentPlatform)
@@ -182,9 +263,13 @@ namespace MusicPlayer
                 return new DirectSoundOut();
         }
 
+        /// <summary>
+        /// Get song source
+        /// </summary>
+        /// <returns>Song source</returns>
         private IWaveSource GetSoundSource()
         {
-            return CodecFactory.Instance.GetCodec(Songs[currentPlay].Path);
+            return CodecFactory.Instance.GetCodec(Songs[currentPlayIndex].Path);
         }
 
 
